@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml">
+	<head>
+		<title>Michigan Tag-O-Rama tags</title>
+		<base target="_top"></base>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<meta name="geo.position" content="43.822588; -84.480636" />
+		<meta name="ICBM" content="43.822588, -84.480636" />
+	</head>
+	<body style="margin:0px;">
+		
+		<script type="text/javascript">
+			API = 'leaflet'; // can be either 'leaflet' or 'google'
+			if (self.API && API.match(/^g/i)) {
+				google_api_key = ''; // Your project's Google Maps API key goes here (https://code.google.com/apis/console)
+				language_code = '';
+				document.writeln('<script src="https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=geometry&amp;language='+(self.language_code?self.language_code:'')+'&amp;key='+(self.google_api_key?self.google_api_key:'')+'" type="text/javascript"><'+'/script>');
+			} else {
+				document.writeln('<link href="https://unpkg.com/leaflet/dist/leaflet.css" rel="stylesheet" />');
+				document.writeln('<script src="https://unpkg.com/leaflet/dist/leaflet.js" type="text/javascript"><'+'/script>');
+			}
+			thunderforest_api_key = ''; // To display OpenStreetMap tiles from ThunderForest, you need a key (https://www.thunderforest.com/docs/apikeys/)
+			ign_api_key = ''; // To display topo tiles from IGN.fr, you need a key (https://api.ign.fr/)
+		</script>
+
+		
+		<!--
+			If you want to transplant this map into another Web page, by far the best method is to
+			simply include it in a IFRAME tag (see https://www.gpsvisualizer.com/faq.html#google_html).
+			But, if you must paste the code into another page, be sure to include all of these parts:
+			   1. The "div" tags that contain the map and its widgets, below
+			   2. Three sections of JavaScript code:
+			      a. The API code (from googleapis.com or unpkg.com/leaflet), above
+			      b. "gv_options" and the code that calls a .js file on gpsvisualizer.com
+			      c. The "GV_Map" function, which contains all the geographic info for the map
+		-->
+		<div style="margin-left:0px; margin-right:0px; margin-top:0px; margin-bottom:0px;">
+			<div id="gmap_div" style="width:700px; height:700px; margin:0px; margin-right:12px; background-color:#f0f0f0; float:left; overflow:hidden;">
+				<p style="text-align:center; font:10px Arial;">This map was created using <a target="_blank" href="https://www.gpsvisualizer.com/">GPS Visualizer</a>'s do-it-yourself geographic utilities.<br /><br />Please wait while the map data loads...</p>
+			</div>
+				
+			<div id="gv_infobox" class="gv_infobox" style="font:11px Arial; border:solid #666666 1px; background-color:#ffffff; padding:4px; overflow:auto; display:none; max-width:400px;">
+				<!-- Although GPS Visualizer didn't create an legend/info box with your map, you can use this space for something else if you'd like; enable it by setting gv_options.infobox_options.enabled to true -->
+			</div>
+
+
+
+			<div id="gv_marker_list" class="gv_marker_list" style="background-color:#ffffff; overflow:auto; display:none;"><!-- --></div>
+
+			<div id="gv_clear_margins" style="height:0px; clear:both;"><!-- clear the "float" --></div>
+		</div>
+
+		
+		<!-- begin GPS Visualizer setup script (must come after loading of API code) -->
+		<script type="text/javascript">
+			/* Global variables used by the GPS Visualizer functions (20200430051729): */
+			gv_options = {};
+			
+			// basic map parameters:
+			gv_options.center = [43.822588,-84.480636];  // [latitude,longitude] - be sure to keep the square brackets
+			gv_options.zoom = 7;  // higher number means closer view; can also be 'auto' for automatic zoom/center based on map elements
+			gv_options.map_type = 'GV_OSM_RELIEF';  // popular map_type choices are 'GV_STREET', 'GV_SATELLITE', 'GV_HYBRID', 'GV_TERRAIN', 'GV_OSM', 'GV_TOPO_US', 'GV_TOPO_WORLD' (https://www.gpsvisualizer.com/misc/leaflet_map_types.html)
+			gv_options.map_opacity = 1.00;  // number from 0 to 1
+			gv_options.full_screen = true;  // true|false: should the map fill the entire page (or frame)?
+			gv_options.width = 700;  // width of the map, in pixels
+			gv_options.height = 700;  // height of the map, in pixels
+			
+			gv_options.map_div = 'gmap_div';  // the name of the HTML "div" tag containing the map itself; usually 'gmap_div'
+			gv_options.doubleclick_zoom = true;  // true|false: zoom in when mouse is double-clicked?
+			gv_options.doubleclick_center = true;  // true|false: re-center the map on the point that was double-clicked?
+			gv_options.scroll_zoom = true; // true|false; or 'reverse' for down=in and up=out
+			gv_options.page_scrolling = true; // true|false; does the map relenquish control of the scroll wheel when embedded in scrollable pages?
+			gv_options.autozoom_adjustment = 0;
+			gv_options.centering_options = { 'open_info_window':true, 'partial_match':true, 'center_key':'center', 'default_zoom':null } // URL-based centering (e.g., ?center=name_of_marker&zoom=14)
+			gv_options.street_view = false; // true|false: allow Google Street View on the map (Google Maps only)
+			gv_options.tilt = false; // true|false: allow Google Maps to show 45-degree tilted aerial imagery?
+			gv_options.disable_google_pois = false;  // true|false: if you disable clickable POIs on Google Maps, you also lose the labels on parks, airports, etc.
+			gv_options.animated_zoom = true; // true|false: only affects Leaflet maps
+			
+			// widgets on the map:
+			gv_options.zoom_control = 'large'; // 'large'|'small'|'none'
+			gv_options.recenter_button = true; // true|false: is there a 'click to recenter' button above the zoom control?
+			gv_options.geolocation_control = false; // true|false; only works on secure servers
+			gv_options.scale_control = true; // true|false
+			gv_options.map_opacity_control = 'utilities';  // 'map'|'utilities'|'both'|false: where does the opacity control appear?
+			gv_options.map_type_control = {};  // widget to change the background map
+			  gv_options.map_type_control.placement = 'both'; // 'map'|'utilities'|'both'|false: where does the map type control appear?
+			  gv_options.map_type_control.filter = false;  // true|false: when map loads, are irrelevant maps ignored?
+			  gv_options.map_type_control.excluded = [];  // comma-separated list of quoted map IDs that will never show in the list ('included' also works)
+			gv_options.center_coordinates = true;  // true|false: show a "center coordinates" box and crosshair?
+			gv_options.measurement_tools = 'both'; // 'map'|'utilities'|'both'|false: where does the measurement ruler appear?
+			gv_options.measurement_options = { visible:false, distance_color:'', area_color:'' };
+			gv_options.crosshair_hidden = true;  // true|false: hide the crosshair initially?
+			gv_options.mouse_coordinates = false;  // true|false: show a "mouse coordinates" box?
+			gv_options.utilities_menu = { 'maptype':true, 'opacity':true, 'measure':true, 'geolocate':true, 'profile':false, 'export':true };
+			gv_options.allow_export = false;  // true|false
+			
+			gv_options.infobox_options = {}; // options for a floating info box (id="gv_infobox"), which can contain anything
+			  gv_options.infobox_options.enabled = true;  // true|false: enable or disable the info box altogether
+			  gv_options.infobox_options.position = ['LEFT_TOP',52,6];  // [Google anchor name, relative x, relative y]
+			  gv_options.infobox_options.draggable = true;  // true|false: can it be moved around the screen?
+			  gv_options.infobox_options.collapsible = true;  // true|false: can it be collapsed by double-clicking its top bar?
+
+			// marker-related options:
+			gv_options.default_marker = { color:'red',icon:'googlemini',scale:1 }; // icon can be a URL, but be sure to also include size:[w,h] and optionally anchor:[x,y]
+			gv_options.vector_markers = false; // are the icons on the map in embedded SVG format?
+			gv_options.marker_tooltips = true; // do the names of the markers show up when you mouse-over them?
+			gv_options.marker_shadows = true; // true|false: do the standard markers have "shadows" behind them?
+			gv_options.marker_link_target = '_blank'; // the name of the window or frame into which markers' URLs will load
+			gv_options.info_window_width = 0;  // in pixels, the width of the markers' pop-up info "bubbles" (can be overridden by 'window_width' in individual markers)
+			gv_options.thumbnail_width = 0;  // in pixels, the width of the markers' thumbnails (can be overridden by 'thumbnail_width' in individual markers)
+			gv_options.photo_size = [0,0];  // in pixels, the size of the photos in info windows (can be overridden by 'photo_width' or 'photo_size' in individual markers)
+			gv_options.hide_labels = false;  // true|false: hide labels when map first loads?
+			gv_options.labels_behind_markers = false; // true|false: are the labels behind other markers (true) or in front of them (false)?
+			gv_options.label_offset = [0,0];  // [x,y]: shift all markers' labels (positive numbers are right and down)
+			gv_options.label_centered = false;  // true|false: center labels with respect to their markers?  (label_left is also a valid option.)
+			gv_options.driving_directions = false;  // put a small "driving directions" form in each marker's pop-up window? (override with dd:true or dd:false in a marker's options)
+			gv_options.garmin_icon_set = 'gpsmap'; // 'gpsmap' are the small 16x16 icons; change it to '24x24' for larger icons
+			gv_options.marker_list_options = {};  // options for a dynamically-created list of markers
+			  gv_options.marker_list_options.enabled = false;  // true|false: enable or disable the marker list altogether
+			  gv_options.marker_list_options.floating = true;  // is the list a floating box inside the map itself?
+			  gv_options.marker_list_options.position = ['RIGHT_BOTTOM',6,38];  // floating list only: position within map
+			  gv_options.marker_list_options.min_width = 160; // minimum width, in pixels, of the floating list
+			  gv_options.marker_list_options.max_width = 160;  // maximum width
+			  gv_options.marker_list_options.min_height = 0;  // minimum height, in pixels, of the floating list
+			  gv_options.marker_list_options.max_height = 310;  // maximum height
+			  gv_options.marker_list_options.draggable = true;  // true|false, floating list only: can it be moved around the screen?
+			  gv_options.marker_list_options.collapsible = true;  // true|false, floating list only: can it be collapsed by double-clicking its top bar?
+			  gv_options.marker_list_options.include_tickmarks = false;  // true|false: are distance/time tickmarks included in the list?
+			  gv_options.marker_list_options.include_trackpoints = false;  // true|false: are "trackpoint" markers included in the list?
+			  gv_options.marker_list_options.dividers = false;  // true|false: will a thin line be drawn between each item in the list?
+			  gv_options.marker_list_options.desc = false;  // true|false: will the markers' descriptions be shown below their names in the list?
+			  gv_options.marker_list_options.icons = true;  // true|false: should the markers' icons appear to the left of their names in the list?
+			  gv_options.marker_list_options.thumbnails = false;  // true|false: should markers' thumbnails be shown in the list?
+			  gv_options.marker_list_options.folders_collapsed = false;  // true|false: do folders in the list start out in a collapsed state?
+			  gv_options.marker_list_options.folders_hidden = false;  // true|false: do folders in the list start out in a hidden state?
+			  gv_options.marker_list_options.collapsed_folders = []; // an array of folder names
+			  gv_options.marker_list_options.hidden_folders = []; // an array of folder names
+			  gv_options.marker_list_options.count_folder_items = false;  // true|false: list the number of items in each folder?
+			  gv_options.marker_list_options.wrap_names = true;  // true|false: should marker's names be allowed to wrap onto more than one line?
+			  gv_options.marker_list_options.unnamed = '[unnamed]';  // what 'name' should be assigned to  unnamed markers in the list?
+			  gv_options.marker_list_options.colors = false;  // true|false: should the names/descs of the points in the list be colorized the same as their markers?
+			  gv_options.marker_list_options.default_color = '';  // default HTML color code for the names/descs in the list
+			  gv_options.marker_list_options.limit = 0;  // how many markers to show in the list; 0 for no limit
+			  gv_options.marker_list_options.center = false;  // true|false: does the map center upon a marker when you click its name in the list?
+			  gv_options.marker_list_options.zoom = false;  // true|false: does the map zoom to a certain level when you click on a marker's name in the list?
+			  gv_options.marker_list_options.zoom_level = 13;  // if 'zoom' is true, what level should the map zoom to?
+			  gv_options.marker_list_options.info_window = true;  // true|false: do info windows pop up when the markers' names are clicked in the list?
+			  gv_options.marker_list_options.url_links = false;  // true|false: do the names in the list become instant links to the markers' URLs?
+			  gv_options.marker_list_options.toggle = false;  // true|false: does a marker disappear if you click on its name in the list?
+			  gv_options.marker_list_options.help_tooltips = false;  // true|false: do "tooltips" appear on marker names that tell you what happens when you click?
+			  gv_options.marker_list_options.id = 'gv_marker_list';  // id of a DIV tag that holds the list
+			  gv_options.marker_list_options.header = ''; // HTML code; be sure to put backslashes in front of any single quotes, and don't include any line breaks
+			  gv_options.marker_list_options.footer = ''; // HTML code
+			gv_options.marker_filter_options = {};  // options for removing waypoints that are out of the current view
+			  gv_options.marker_filter_options.enabled = false;  // true|false: should out-of-range markers be removed?
+			  gv_options.marker_filter_options.movement_threshold = 8;  // in pixels, how far the map has to move to trigger filtering
+			  gv_options.marker_filter_options.limit = 0;  // maximum number of markers to display on the map; 0 for no limit
+			  gv_options.marker_filter_options.update_list = true;  // true|false: should the marker list be updated with only the filtered markers?
+			  gv_options.marker_filter_options.sort_list_by_distance = false;  // true|false: should the marker list be sorted by distance from the center of the map?
+			  gv_options.marker_filter_options.min_zoom = 0;  // below this zoom level, don't show any markers at all
+			  gv_options.marker_filter_options.zoom_message = '';  // message to put in the marker list if the map is below the min_zoom threshold
+			gv_options.synthesize_fields = {}; // for example: {label:'{name}'} would cause all markers' names to become visible labels
+				
+
+			
+			// Load GPS Visualizer's mapping functions (this must be loaded AFTER gv_options are set):
+			var script_file = (self.API && API == 'google') ? 'google_maps/functions3.js' : 'leaflet/functions.js';
+			if (document.location.protocol == 'https:') { // secure pages require secure scripts
+				document.writeln('<script src="https://www.gpsvisualizer.com/'+script_file+'" type="text/javascript"><'+'/script>');
+			} else {
+				document.writeln('<script src="http://maps.gpsvisualizer.com/'+script_file+'" type="text/javascript"><'+'/script>');
+			}
+		</script>
+		<style type="text/css">
+			/* Put any custom style definitions here (e.g., .gv_marker_info_window, .gv_marker_info_window_name, .gv_marker_list_item, .gv_tooltip, .gv_label, etc.) */
+			#gmap_div .gv_marker_info_window {
+				font-size:11px !important;
+			}
+			#gmap_div .gv_label {
+				opacity:0.90; filter:alpha(opacity=90);
+				color:white; background:#333333; border:1px solid black; padding:1px;
+				font:9px Verdana !important;
+				font-weight:normal !important;
+			}
+			.legend_block {
+				display:inline-block; border:solid 1px black; width:9px; height:9px; margin:0px 2px 0px 0px;
+			}
+			
+		</style>
+		
+		<!-- end GPSV setup script and styles; begin map-drawing script (they must be separate) -->
+		<script type="text/javascript">
+			function GV_Map() {
+				GV_Setup_Map();
+				
+				
+				
+				GV_Draw_Marker({lat:44.3980420,lon:-84.7325290,name:'5/28/2013',desc:'jbmac</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/#post-21511596\'>2</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:44.6149600,lon:-84.9917140,name:'6/1/2013',desc:'dthogey</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/#post-21542682\'>10</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:44.6853570,lon:-85.5096040,name:'6/12/2013',desc:'kentnothstine</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/#post-21629577\'>20</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:44.6851100,lon:-85.8886290,name:'6/17/2013',desc:'Clebner</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-2#post-21664474\'>25</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:44.4893170,lon:-85.4165830,name:'7/6/2013',desc:'dthogey</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-2#post-21803184\'>31</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:44.7273520,lon:-86.1200340,name:'7/10/2013',desc:'Clebner</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-2#post-21835882\'>33</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.9416410,lon:-86.4535290,name:'7/30/2013',desc:'oz97tj</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-3#post-21988000\'>48</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.3433930,lon:-86.4074670,name:'8/1/2013',desc:'GatorDoc</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-4#post-22008534\'>63</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:41.9418750,lon:-85.6823990,name:'8/14/2013',desc:'Poweranger</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-4#post-22102732\'>77</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.0988080,lon:-86.0031260,name:'8/30/2013',desc:'epix1718</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-5#post-22218750\'>82</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.6508640,lon:-86.1066080,name:'9/3/2013',desc:'Thanantos</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-5#post-22244136\'>87</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:41.9669250,lon:-85.5283980,name:'9/25/2013',desc:'Poweranger</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-5#post-22412163\'>89</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.9745310,lon:-85.6767180,name:'10/5/2013',desc:'Titlerider</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-5#post-22488019\'>97</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.2164070,lon:-85.8898280,name:'11/3/2013',desc:'Titlerider</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-6#post-22698725\'>102</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.6097160,lon:-83.9214310,name:'4/20/2014',desc:'Poweranger</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-6#post-23981841\'>105</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:41.9414980,lon:-85.0050110,name:'4/25/2014',desc:'Titlerider</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-6#post-24022087\'>109</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:41.7984480,lon:-85.4228060,name:'6/1/2014',desc:'Poweranger</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-6#post-24294439\'>111</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.2277320,lon:-85.5584980,name:'6/1/2014',desc:'epix1718</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-6#post-24295238\'>112</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.2553160,lon:-85.6413200,name:'6/2/2014',desc:'FlyingWman</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-6#post-24304175\'>114</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.4039990,lon:-86.2466670,name:'7/5/2014',desc:'Titlerider</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-7#post-24549690\'>122</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:41.8241000,lon:-85.6602360,name:'9/26/2014',desc:'Poweranger</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-7#post-25159323\'>128</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.0650020,lon:-86.0766310,name:'10/23/2014',desc:'Kawasakirob</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-7#post-25348464\'>136</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.2619840,lon:-86.3559090,name:'10/25/2014',desc:'RJH1</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-8#post-25359913\'>141</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.3746060,lon:-86.4239050,name:'11/30/2014',desc:'Titlerider</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-8#post-25611672\'>144</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.3976590,lon:-86.2366970,name:'4/1/2015',desc:'Titlerider</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-8#post-26490616\'>145</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.1463160,lon:-85.9488420,name:'4/12/2015',desc:'RJH1</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-8#post-26563110\'>150</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.6515470,lon:-86.5380820,name:'6/6/2015',desc:'RJH1</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-8#post-26944260\'>152</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.4428250,lon:-85.2791020,name:'6/23/2015',desc:'mikesova</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-8#post-27060465\'>154</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.0777560,lon:-86.0670360,name:'6/27/2015',desc:'Titlerider</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-8#post-27090029\'>158</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.4163530,lon:-86.3544460,name:'6/28/2015',desc:'GatorDoc</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-8#post-27094527\'>160</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8123870,lon:-85.7282680,name:'7/19/2015',desc:'Tripl3Threat</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-9#post-27227646\'>161</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:45.1337950,lon:-84.1769140,name:'8/9/2015',desc:'Yohin</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-9#post-27365154\'>163</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:44.1926350,lon:-85.1545950,name:'9/6/2015',desc:'Titlerider</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-9#post-27552438\'>164</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.9806020,lon:-85.3277220,name:'9/20/2015',desc:'Tripl3Threat</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-9#post-27639860\'>166</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:44.2648840,lon:-85.9387960,name:'9/27/2015',desc:'Yohin</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-9#post-27686679\'>167</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:44.6429900,lon:-85.5094220,name:'10/17/2015',desc:'Blizzard7763</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-9#post-27822783\'>171</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.7501270,lon:-85.1466540,name:'11/14/2015',desc:'Titlerider</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-9#post-28019730\'>172</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.5814110,lon:-82.5620210,name:'11/16/2015',desc:'Yohin</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-9#post-28033541\'>173</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.2760030,lon:-82.6229780,name:'12/13/2015',desc:'Triumphrider1</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-9#post-28218251\'>175</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.1302950,lon:-83.1819450,name:'1/3/2016',desc:'Yohin</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-9#post-28361052\'>180</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.1630410,lon:-83.7901890,name:'4/30/2016',desc:'DeansZG</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-10#post-29305478\'>194</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.7980760,lon:-82.6354200,name:'4/30/2016',desc:'rc51jim</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-10#post-29307101\'>196</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.9095280,lon:-82.8832140,name:'5/6/2016',desc:'two trackin fool</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-11#post-29358001\'>203</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.9234740,lon:-82.4694650,name:'5/7/2016',desc:'rc51jim</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-11#post-29363702\'>205</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.9775700,lon:-82.4231900,name:'5/11/2016',desc:'two trackin fool</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-11#post-29393800\'>216</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.0523000,lon:-82.5763220,name:'5/16/2016',desc:'rc51jim</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-11#post-29429083\'>219</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.4246480,lon:-82.7204810,name:'5/20/2016',desc:'two trackin fool</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-11#post-29463385\'>220</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.9361550,lon:-82.7081050,name:'5/22/2016',desc:'rc51jim</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-12#post-29477521\'>221</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8966170,lon:-82.7640420,name:'5/27/2016',desc:'two trackin fool</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-12#post-29521200\'>225</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.9984800,lon:-82.4262020,name:'5/28/2016',desc:'rc51jim</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-12#post-29526725\'>231</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:44.0467490,lon:-82.9938050,name:'5/30/2016',desc:'mr.awesome</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-12#post-29539955\'>236</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.9902970,lon:-82.7645630,name:'6/7/2016',desc:'rc51jim</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-12#post-29606438\'>239</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.1863650,lon:-82.8648190,name:'6/30/2016',desc:'Dano990</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-13#post-29789430\'>249</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.0371180,lon:-82.6093220,name:'7/2/2016',desc:'rc51jim</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-13#post-29803026\'>258</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8408490,lon:-85.5793980,name:'7/15/2016',desc:'Tripl3Threat</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-14#post-29902159\'>269</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.5594940,lon:-86.3452880,name:'8/13/2016',desc:'Titlerider</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-14#post-30118252\'>272</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.3680570,lon:-86.4199060,name:'8/16/2016',desc:'RJH1</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-14#post-30142664\'>273</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:45.2087380,lon:-85.5454470,name:'9/3/2016',desc:'Tripl3Threat</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-14#post-30277915\'>275</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:44.7617670,lon:-85.6144710,name:'9/13/2016',desc:'Yohin</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-14#post-30353004\'>278</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:44.7242720,lon:-85.8431100,name:'9/23/2016',desc:'Clebner</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-15#post-30421543\'>281</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8154290,lon:-83.7811720,name:'10/16/2016',desc:'Yohin</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-15#post-30586772\'>283</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.3219760,lon:-83.0792380,name:'10/19/2016',desc:'rc51jim</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-15#post-30614394\'>285</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.4130970,lon:-83.9532420,name:'10/29/2016',desc:'Yohin</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-15#post-30681309\'>286</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.3670890,lon:-83.6074340,name:'11/1/2016',desc:'scot_douglas</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-15#post-30714916\'>290</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.2030190,lon:-83.1476220,name:'11/2/2016',desc:'DeansZG</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-15#post-30714981\'>291</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8598160,lon:-83.6218810,name:'11/5/2016',desc:'Redline3504</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-15#post-30737612\'>292</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.3685640,lon:-83.0651080,name:'11/6/2016',desc:'spoonyfork</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-15#post-30740752\'>294</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8496170,lon:-85.5650980,name:'11/7/2016',desc:'Tripl3Threat</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-15#post-30751044\'>298</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.5324630,lon:-83.4843610,name:'11/13/2016',desc:'Yohin</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-16#post-30804498\'>302</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8134240,lon:-82.7545470,name:'11/27/2016',desc:'rc51jim</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-16#post-30903789\'>304</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.1075910,lon:-83.1650800,name:'12/4/2016',desc:'Yohin</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-16#post-30958819\'>305</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.2461590,lon:-83.6091770,name:'1/21/2017',desc:'alexofnazareth</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-16#post-31338467\'>307</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.2566260,lon:-83.6238930,name:'2/5/2017',desc:'Yohin</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-16#post-31470541\'>309</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.4425220,lon:-83.0461710,name:'6/18/2017',desc:'spoonyfork</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-16#post-32536320\'>315</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.3813780,lon:-82.9397980,name:'6/21/2017',desc:'zaphoid</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-16#post-32560012\'>318</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.4218890,lon:-85.8010070,name:'11/15/2017',desc:'Yohin</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-17#post-33669681\'>323</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.2343180,lon:-86.2547780,name:'6/1/2018',desc:'RJH1</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-17#post-35151105\'>326</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:45.8467280,lon:-84.7259210,name:'8/23/2018',desc:'RJH1</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-17#post-35769713\'>327</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.2665480,lon:-84.9640510,name:'6/17/2019',desc:'Maineboarder88</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-17#post-37816105\'>332</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.3219800,lon:-85.1813900,name:'8/10/2019',desc:'Moose Dog</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-17#post-38172808\'>340</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.3443600,lon:-83.0601480,name:'3/8/2020',desc:'spoonyfork</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-18#post-39534880\'>341</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.3996980,lon:-83.7979200,name:'4/2/2020',desc:'nomad18z</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-18#post-39727587\'>342</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.3378160,lon:-84.1314620,name:'4/19/2020',desc:'Winger77</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-18#post-39860125\'>344</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.4761540,lon:-83.6142750,name:'4/26/2020',desc:'spoonyfork</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-18#post-39911442\'>345</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:41.9797360,lon:-83.6249380,name:'4/27/2020',desc:'DeansZG</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-18#post-39918563\'>347</a>',color:'',icon:''});
+				
+				GV_Finish_Map();
+					
+			}
+			GV_Map(); // execute the above code
+			// https://www.gpsvisualizer.com/map_input?form=leaflet
+		</script>
+		
+		
+		
+	</body>
+
+</html>
