@@ -11,6 +11,6 @@ http://spoonyfork.github.io/Michigan-Tag-O-Rama/Michigan_Tag-O-Rama_tags.csv
 ## CSV of source used to create CSV of tags
 http://spoonyfork.github.io/Michigan-Tag-O-Rama/Michigan_Tag-O-Rama_source.csv
 
-Last updated: 2020-06-27
+Last updated: 2020-07-11
 
 Send comments and corrections to spoonyfork@gmail.com
