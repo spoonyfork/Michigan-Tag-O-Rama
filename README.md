@@ -1,5 +1,7 @@
 # Michigan Tag-O-Rama
 
+
+
 GPS coordinates and map of all tags on ADVRider's Michgian Tag-O-Rama at https://advrider.com/f/threads/michigan-tag-o-rama.890896
 
 ## HTML Map of Tags (generated at [GPS Visualizer](https://www.gpsvisualizer.com/))
@@ -14,3 +16,5 @@ http://spoonyfork.github.io/Michigan-Tag-O-Rama/Michigan_Tag-O-Rama_source.csv
 Last updated: 2020-07-11
 
 Send comments and corrections to spoonyfork@gmail.com
+
+![Alt text](Michigan_Tag-O-Rama_map.png?raw=true "PNG of Tag Map")
