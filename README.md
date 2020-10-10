@@ -17,4 +17,4 @@ Last updated: 2020-10-10
 
 Send comments and corrections to spoonyfork@gmail.com
 
-<img src="http://spoonyfork.github.io/Michigan-Tag-O-Rama/Michigan_Tag-O-Rama_source.png" width="50%" height="50%">
+<img src="https://raw.githubusercontent.com/spoonyfork/Michigan-Tag-O-Rama/master/Michigan_Tag-O-Rama_map.png" width="50%" height="50%">
