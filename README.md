@@ -17,4 +17,4 @@ Last updated: 2020-10-10
 
 Send comments and corrections to spoonyfork@gmail.com
 
-![Alt text](Michigan_Tag-O-Rama_map.png?raw=true "PNG of Tag Map"){:height="50%" width="50%"}
+<img src="http://spoonyfork.github.io/Michigan-Tag-O-Rama/Michigan_Tag-O-Rama_source.png" width="50%" height="50%">
