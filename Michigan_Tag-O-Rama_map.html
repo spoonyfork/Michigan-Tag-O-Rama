@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="https://www.w3.org/1999/xhtml">
 	<head>
 		<title>Michigan_Tag-O-Rama_tags</title>
 		<base target="_top"></base>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<meta name="geo.position" content="44.1835871; -85.1445434" />
 		<meta name="ICBM" content="44.1835871, -85.1445434" />
 	</head>
@@ -54,7 +54,7 @@
 		
 		<!-- begin GPS Visualizer setup script (must come after loading of API code) -->
 		<script type="text/javascript">
-			/* Global variables used by the GPS Visualizer functions (20211121080301): */
+			/* Global variables used by the GPS Visualizer functions (20220626150730): */
 			gv_options = {};
 			
 			// basic map parameters:
@@ -71,7 +71,7 @@
 			gv_options.doubleclick_center = true;  // true|false: re-center the map on the point that was double-clicked?
 			gv_options.scroll_zoom = true; // true|false; or 'reverse' for down=in and up=out
 			gv_options.page_scrolling = true; // true|false; does the map relenquish control of the scroll wheel when embedded in scrollable pages?
-			gv_options.autozoom_adjustment = 0;
+			gv_options.autozoom_adjustment = 0; gv_options.autozoom_default = 11;
 			gv_options.centering_options = { 'open_info_window':true, 'partial_match':true, 'center_key':'center', 'default_zoom':null } // URL-based centering (e.g., ?center=name_of_marker&zoom=14)
 			gv_options.street_view = false; // true|false: allow Google Street View on the map (Google Maps only)
 			gv_options.tilt = false; // true|false: allow Google Maps to show 45-degree tilted aerial imagery?
@@ -79,14 +79,14 @@
 			gv_options.animated_zoom = true; // true|false: only affects Leaflet maps
 			
 			// widgets on the map:
-			gv_options.zoom_control = 'large'; // 'large'|'small'|'none'
+			gv_options.zoom_control = 'auto'; // 'auto'|'large'|'small'|'none'
 			gv_options.recenter_button = true; // true|false: is there a 'click to recenter' button above the zoom control?
 			gv_options.geolocation_control = false; // true|false; only works on secure servers
 			gv_options.geolocation_options = { center:true, zoom:null, marker:true, info_window:true };
 			gv_options.scale_control = true; // true|false
 			gv_options.map_opacity_control = false;  // true|false
 			gv_options.map_type_control = {};  // widget to change the background map
-			  gv_options.map_type_control.visible = true; // true|false: is a map type control placed on the map itself?
+			  gv_options.map_type_control.visible = 'auto'; // true|false|'auto': is a map type control placed on the map itself?
 			  gv_options.map_type_control.filter = false;  // true|false: when map loads, are irrelevant maps ignored?
 			  gv_options.map_type_control.excluded = [];  // comma-separated list of quoted map IDs that will never show in the list ('included' also works)
 			gv_options.center_coordinates = true;  // true|false: show a "center coordinates" box and crosshair?
@@ -105,7 +105,7 @@
 
 			// marker-related options:
 			gv_options.default_marker = { color:'red',icon:'googlemini',scale:1 }; // icon can be a URL, but be sure to also include size:[w,h] and optionally anchor:[x,y]
-			gv_options.vector_markers = false; // are the icons on the map in embedded SVG format?
+			gv_options.vector_markers = true; // are the icons on the map in embedded SVG format?
 			gv_options.marker_tooltips = true; // do the names of the markers show up when you mouse-over them?
 			gv_options.marker_shadows = true; // true|false: do the standard markers have "shadows" behind them?
 			gv_options.marker_link_target = '_blank'; // the name of the window or frame into which markers' URLs will load
@@ -139,6 +139,7 @@
 			  gv_options.marker_list_options.collapsed_folders = []; // an array of folder names
 			  gv_options.marker_list_options.hidden_folders = []; // an array of folder names
 			  gv_options.marker_list_options.count_folder_items = false;  // true|false: list the number of items in each folder?
+			  gv_options.marker_list_options.folder_zoom = true;  // true|false: is there a zoom link next to each folder name?
 			  gv_options.marker_list_options.wrap_names = true;  // true|false: should marker's names be allowed to wrap onto more than one line?
 			  gv_options.marker_list_options.unnamed = '[unnamed]';  // what 'name' should be assigned to  unnamed markers in the list?
 			  gv_options.marker_list_options.colors = false;  // true|false: should the names/descs of the points in the list be colorized the same as their markers?
@@ -328,6 +329,25 @@
 				GV_Draw_Marker({lat:42.7480802,lon:-83.3702827,name:'10/20/2021',desc:'T.S.</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-28#post-43180090\' target=\'_blank\'>Tag #131 Pine Knob east gate</a>',color:'',icon:''});
 				GV_Draw_Marker({lat:42.8158856,lon:-83.3023728,name:'10/31/2021',desc:'DJ_MI</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-28#post-43237775\' target=\'_blank\'>Tag #132 Squaw Lake boat launch in Oxford</a>',color:'',icon:''});
 				GV_Draw_Marker({lat:42.5927033,lon:-83.6013930,name:'11/7/2021',desc:'T.S.</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-29#post-43272084\' target=\'_blank\'>Tag #133 Milford waterfall</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8168332,lon:-83.6483666,name:'11/8/2021',desc:'Winger77</br><a href=\'https://advrider.com/f/threads/michigan-tag-o-rama.890896/page-29#post-43279364\' target=\'_blank\'>Tag #134 Seven Lakes State Park</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.7195682,lon:-83.5999939,name:'12/13/2021',desc:'T.S.</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-29#post-43461121\' target=\'_blank\'>Tag #135 Diehl\'s Orachard Cider Mill</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8059624,lon:-83.8816031,name:'12/15/2021',desc:'Winger77</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-29#post-43473267\' target=\'_blank\'>Tag #136 Myers Lake Camping and Cabins</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.2826209,lon:-84.4130630,name:'12/31/2021',desc:'Assfault</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-29#post-43551186\' target=\'_blank\'>Tag #137 GTW Locomotive #5030 North Lawn Park on Lansing Ave In Jackson, MI http://www.rgusrail.com/migtw5030.html</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.5491763,lon:-83.5221474,name:'3/9/2022',desc:'Winger77</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-30#post-44185773\' target=\'_blank\'>Tag #138 Detroit Finnish Co-operative Summer Camp Association historical marker</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.3959759,lon:-83.6636767,name:'3/10/2022',desc:'alexofnazareth</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-30#post-44192077\' target=\'_blank\'>Tag #139 Mary-Go-Round</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.4493948,lon:-83.8012748,name:'3/17/2022',desc:'Winger77</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-30#post-44260151\' target=\'_blank\'>Tag #140 Hamburg Fire Department</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.7348826,lon:-83.8820124,name:'4/10/2022',desc:'T.S.</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-30#post-44473357\' target=\'_blank\'>Tag #141 Indian Lake Access Site DNR boat launch</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.7058730,lon:-83.8222895,name:'4/20/2022',desc:'Winger77</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-30#post-44564993\' target=\'_blank\'>Tag #142 Saint Augustine Catholic Church and Cemetery historical marker</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.4897958,lon:-84.3066430,name:'5/1/2022',desc:'Assfault</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-30#post-44656661\' target=\'_blank\'>Tag #143 Saints Cornelius and Cyprian Church historical marker</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.5791186,lon:-84.4450458,name:'5/1/2022',desc:'Winger77</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-30#post-44659707\' target=\'_blank\'>Tag #144 City of Mason, Mason Public Schools</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8036097,lon:-83.8541864,name:'5/14/2022',desc:'T.S.</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-30#post-44774195\' target=\'_blank\'>Tag #145 Shiawasee River Hertiage Water Trail McCaslin Lk. Rd.</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8016014,lon:-83.0129466,name:'5/15/2022',desc:'TheLebowski</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-30#post-44784865\' target=\'_blank\'>Tag #146 mural, artist\'s webpage http://www.ncolemacdonald.com/#/new-gallery-4/</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.6476704,lon:-83.0605165,name:'5/21/2022',desc:'DJ_MI</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-31#post-44838625\' target=\'_blank\'>Tag #147 Utica Nike Base historical marker</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:42.8091121,lon:-83.3756984,name:'6/4/2022',desc:'T.S.</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-31#post-44958219\' target=\'_blank\'>Tag #148 Ashton Orchards Ortonville</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.8022040,lon:-82.9968688,name:'6/11/2022',desc:'Assfault</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-31#post-45022611\' target=\'_blank\'>Tag #149 Bad Axe Movie Theatre K of C</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.2139292,lon:-83.4573936,name:'6/12/2022',desc:'Winger77</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-31#post-45031421\' target=\'_blank\'>Tag #150 Otter Lake Historical Museum</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.5314735,lon:-84.4562722,name:'6/18/2022',desc:'T.S.</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-31#post-45083449\' target=\'_blank\'>Tag #151 The Old Time Gas Station in Breckinridge</a>',color:'',icon:''});
+				GV_Draw_Marker({lat:43.3253701,lon:-83.7394524,name:'6/19/2022',desc:'mr.awesome</br><a href=\'https://www.advrider.com/f/threads/michigan-tag-o-rama.890896/page-31#post-45090453\' target=\'_blank\'>Tag #152 Holz-Brücke Wooden Bridge</a>',color:'',icon:''});
 				
 				GV_Finish_Map();
 					
